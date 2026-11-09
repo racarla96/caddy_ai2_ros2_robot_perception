@@ -1,7 +1,7 @@
 # caddy_ai2_ros2_robot_perception
 
 Pila de percepción del **Caddy AI2** (carrito de golf, plataforma de pruebas de vehículos) en hardware real.
-Corre en la **Jetson Orin NX**, dentro de un contenedor Docker (JetPack 6.2 sin reflashear, ROS 2 Jazzy en contenedor).
+Corre en la **Jetson Orin NX** (ROS 2 Jazzy; el plan es pasarla a Ubuntu 24.04 y, si no es posible, usar un contenedor Docker sobre JetPack 6.2).
 El control de bajo nivel corre en el LattePanda Alpha: [`caddy_ai2_ros2_robot_lowlevel`](https://github.com/racarla96/caddy_ai2_ros2_robot_lowlevel).
 
 **ROS 2:** Jazzy | **Proyecto:** CERVAREC
