@@ -1,0 +1,16 @@
+[submodule "src/caddy_ai2_ros2_description"]
+	path = src/caddy_ai2_ros2_description
+	url = git@github.com:racarla96/caddy_ai2_ros2_description.git
+	branch = jazzy
+[submodule "src/caddy_ai2_ros2_robot_description_publisher"]
+	path = src/caddy_ai2_ros2_robot_description_publisher
+	url = git@github.com:racarla96/caddy_ai2_ros2_robot_description_publisher.git
+	branch = jazzy
+[submodule "src/caddy_ai2_ros2_sensors_rs_helios_5515"]
+	path = src/caddy_ai2_ros2_sensors_rs_helios_5515
+	url = git@github.com:racarla96/caddy_ai2_ros2_sensors_rs_helios_5515.git
+	branch = main
+[submodule "src/caddy_ai2_ros2_camera_zed_2i"]
+	path = src/caddy_ai2_ros2_camera_zed_2i
+	url = git@github.com:racarla96/caddy_ai2_ros2_camera_zed_2i.git
+	branch = main

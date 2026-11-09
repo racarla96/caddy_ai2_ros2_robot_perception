@@ -1,0 +1,38 @@
+# caddy_ai2_ros2_robot_perception
+
+Pila de percepción del **Caddy AI2** (carrito de golf, plataforma de pruebas de vehículos) en hardware real.
+Corre en la **Jetson Orin NX**, dentro de un contenedor Docker (JetPack 6.2 sin reflashear, ROS 2 Jazzy en contenedor).
+El control de bajo nivel corre en el LattePanda Alpha: [`caddy_ai2_ros2_robot_lowlevel`](https://github.com/racarla96/caddy_ai2_ros2_robot_lowlevel).
+
+**ROS 2:** Jazzy | **Proyecto:** CERVAREC
+
+## Qué lleva
+
+| Paquete | Rol |
+|---|---|
+| `caddy_ai2_ros2_description` | Descripción del robot (fuente única compartida con la simulación) |
+| `caddy_ai2_ros2_robot_description_publisher` | Publicador de `robot_description` |
+| `caddy_ai2_ros2_sensors_rs_helios_5515` | LiDAR 3D RoboSense Helios RS-5515 |
+| `caddy_ai2_ros2_camera_zed_2i` | Dos ZED 2i (disposición A: dos delanteras, o B: delantera y trasera) |
+| *(pendiente)* `caddy_ai2_ros2_sensors_gps_ublox` | GPS u-blox propio de la Jetson |
+
+## Clonar y compilar
+
+```bash
+git clone --recurse-submodules git@github.com:racarla96/caddy_ai2_ros2_robot_perception.git
+```
+
+Las ZED necesitan el ZED SDK y `zed-ros2-wrapper` (submódulo en `caddy_ai2_ros2_camera_zed_2i/third_party`),
+que solo se compilan dentro del contenedor de la Jetson, no en un PC de desarrollo.
+
+## Pendiente
+
+- Paquete del GPS u-blox (hoy no existe repo).
+- `Dockerfile` / `docker-compose` del contenedor de la Jetson.
+- `perception.launch.py` que arranque solo los sensores de este equipo (campo `host: jetson` en `robot_params.yaml`).
+- Reconciliar los frames ópticos del wrapper real con los `<frame_id>_optical` del URDF.
+- Decidir qué GPS (SBG en el LattePanda o u-blox aquí) alimenta la localización.
+- Medir las poses reales de las ZED en la barra del vehículo.
+
+Plan completo: [`PLAN_REORGANIZACION.md`](https://github.com/racarla96/caddy_ai2/blob/jazzy/docs/PLAN_REORGANIZACION.md).
+Licencia CC BY 4.0.
