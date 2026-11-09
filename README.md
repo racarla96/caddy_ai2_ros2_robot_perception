@@ -31,7 +31,8 @@ que solo se compilan dentro del contenedor de la Jetson, no en un PC de desarrol
 - `Dockerfile` / `docker-compose` del contenedor de la Jetson.
 - `perception.launch.py` que arranque solo los sensores de este equipo (campo `host: jetson` en `robot_params.yaml`).
 - Reconciliar los frames ópticos del wrapper real con los `<frame_id>_optical` del URDF.
-- Decidir qué GPS (SBG en el LattePanda o u-blox aquí) alimenta la localización.
+- Red: mismo `ROS_DOMAIN_ID` que el LattePanda, RMW y interfaz de red fijados, y hora sincronizada con chrony.
+- El GPS u-blox convive con el del SBG (LattePanda); cada uno con su topic, la localización decide cuál(es) usa.
 - Medir las poses reales de las ZED en la barra del vehículo.
 
 Plan completo: [`PLAN_REORGANIZACION.md`](https://github.com/racarla96/caddy_ai2/blob/jazzy/docs/PLAN_REORGANIZACION.md).
