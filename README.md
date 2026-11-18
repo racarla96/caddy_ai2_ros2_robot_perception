@@ -41,13 +41,26 @@ los consumidores deben usar `reliable`. Detalles en cada paquete y en el plan, F
 
 - GPS u-blox: sacar la antena a cielo abierto y confirmar fix (el nodo ya funciona, ver su README).
 - Contenedor de la Jetson: solo si la ZED lo exige; el Helios y el VN-100 corren nativos.
-- `perception.launch.py` que arranque solo los sensores de este equipo (campo `host: jetson` en `robot_params.yaml`).
+- `perception.launch.py` que arranque todos los sensores de percepción (esta pila corre solo en la Jetson; el LattePanda es solo control de bajo nivel, sin campo `host`).
 - Reconciliar los frames ópticos del wrapper real con los `<frame_id>_optical` del URDF.
-- Red: mismo `ROS_DOMAIN_ID` que el LattePanda, RMW y interfaz de red fijados, y hora sincronizada con chrony.
+- Red: mismo `ROS_DOMAIN_ID` que el LattePanda y RMW e interfaz de red fijados.
+- Hora: chrony **probado** con el PC de desarrollo por USB (offset −0,11 ms); falta adaptarlo a la red del coche (ver abajo).
 - Tres fuentes de posición conviven (SBG en el LattePanda, u-blox y la ZED), cada una con su topic; la localización decide cuál(es) usa.
 - Instalar el ZED SDK y las dos ZED 2i en la Jetson. Helios y VN-100 ya funcionan y el SO ya es 24.04 (ver plan, Fase E).
-- Arranque automático de los drivers (systemd), Tailscale y reglas udev del resto de dispositivos serie.
+- Arranque automático de los drivers (systemd) y reglas udev del resto de dispositivos serie (Tailscale descartado).
 - Medir las poses reales de las ZED en la barra del vehículo.
+
+## Sincronización de hora (chrony)
+
+Probado el 18-nov-2026 entre el PC de desarrollo (servidor) y la ZED Box (cliente) por el enlace USB. Resultado: offset −0,11 ms, retardo 0,27 ms.
+
+| Dónde | Configuración (`/etc/chrony/conf.d/caddy.conf`) |
+|---|---|
+| Servidor (hoy el PC, en el coche decidir cuál) | `allow 192.168.55.0/24` y `local stratum 10`; `sudo apt install chrony` sustituye a `systemd-timesyncd` |
+| Cliente (la ZED Box) | `server 192.168.55.100 iburst prefer minpoll 1 maxpoll 4` |
+
+Comprobar en el cliente: `chronyc sources` (la fuente con `*` es la elegida) y `chronyc tracking`.
+**Adaptar a la red del coche:** elegir el ordenador de referencia, cambiar la IP del `server` y volver a medir por el enlace real.
 
 Plan completo: [`PLAN_REORGANIZACION.md`](https://github.com/racarla96/caddy_ai2/blob/jazzy/docs/PLAN_REORGANIZACION.md).
 Licencia CC BY 4.0.
