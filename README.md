@@ -15,7 +15,7 @@ El control de bajo nivel corre en el LattePanda Alpha: [`caddy_ai2_ros2_robot_lo
 | `caddy_ai2_ros2_sensors_rs_helios_5515` | LiDAR 3D RoboSense Helios RS-5515 |
 | `caddy_ai2_ros2_imu_vectornav_vn100` | IMU VectorNav VN-100 |
 | `caddy_ai2_ros2_camera_zed_2i` | Dos ZED 2i (disposición A: dos delanteras, o B: delantera y trasera) |
-| `caddy_ai2_ros2_sensors_gps_ublox` | GPS u-blox M8 secundario de la Jetson (el principal es el SBG del LattePanda); sin probar con el nodo |
+| `caddy_ai2_ros2_sensors_gps_ublox` | GPS u-blox M8 secundario de la Jetson (el principal es el SBG del LattePanda) (NEO-M8P-2, HPG REF); nodo probado, 5 Hz, sin fix aún |
 
 ## Clonar y compilar
 
@@ -39,7 +39,7 @@ los consumidores deben usar `reliable`. Detalles en cada paquete y en el plan, F
 
 ## Pendiente
 
-- Probar el paquete del GPS u-blox en la ZED Box (escrito, sin probar; ver su README).
+- GPS u-blox: sacar la antena a cielo abierto y confirmar fix (el nodo ya funciona, ver su README).
 - Contenedor de la Jetson: solo si la ZED lo exige; el Helios y el VN-100 corren nativos.
 - `perception.launch.py` que arranque solo los sensores de este equipo (campo `host: jetson` en `robot_params.yaml`).
 - Reconciliar los frames ópticos del wrapper real con los `<frame_id>_optical` del URDF.
